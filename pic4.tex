@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage[T2A]{fontenc}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+
+% set up externalization
+\usetikzlibrary{external}
+\tikzset{external/system call={
+pdflatex \tikzexternalcheckshellescape -halt-on-error 
+-interaction=batchmode -jobname "\image" "\texsource" && % or ;
+pdftops -eps "\image".pdf}}
+\tikzexternalize[shell escape=-enable-write18]
+
+\begin{document}
+\begin{tikzpicture}
+\draw[->] (-0.5, 0) -- (5, 0) node[below right] {$q$};
+\draw[->] (0, -0.5) -- (0, 5) node[above left]  {$g_F$};
+\begin{scope}
+	\clip (0, 0) rectangle (4, 5);
+	\draw[style=very thick] (0, 0) parabola bend (4, 4) (8, 0);
+\end{scope}
+\draw (3, 4) node [above right] {$g^{I}_{F}$};
+\begin{scope}
+	\clip (4, 0) rectangle (4.5, 5);
+	\draw[style=dashed] (0, 0) parabola bend (4, 4) (8, 0);
+\end{scope}
+\begin{scope}
+	\clip (0, 0) rectangle (3, 3.5);
+	\draw (0, 0) parabola bend (3, 2) (6, 0);
+\end{scope}
+\begin{scope}
+	\clip (3, 0) rectangle (3.5, 3);
+	\draw[style=dashed] (0, 0) parabola bend (3, 2) (6, 0);
+\end{scope}
+\draw (3.45, 2.8) node [below left] {$g^{II}_{F}$};
+\draw[style=dashed] (3, 2) -- (3, 0) node[below] {$\tilde{q}^{II}$};
+\draw[style=dashed] (4, 4) -- (4, 0) node[below] {$\tilde{q}^{I}$};
+\end{tikzpicture}
+\end{document}

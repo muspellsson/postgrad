@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage[T2A]{fontenc}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+
+% set up externalization
+\usetikzlibrary{external}
+\tikzset{external/system call={
+pdflatex \tikzexternalcheckshellescape -halt-on-error 
+-interaction=batchmode -jobname "\image" "\texsource" && % or ;
+pdftops -eps "\image".pdf}}
+\tikzexternalize[shell escape=-enable-write18]
+
+\begin{document}
+\begin{tikzpicture}
+\draw[->] (-0.5, 0) -- (5, 0) node[below right] {$q$};
+\draw[->] (0, -0.5) -- (0, 5) node[above left]  {$g_F$};
+\begin{scope}
+	\clip (0, 0) rectangle (1.98, 2.97);
+	\draw(0, 0) parabola bend (4, 4) (6, 0);
+\end{scope}
+\begin{scope}
+	\clip (1.98, 2.97) rectangle (4, 5);
+	\draw[style=very thick] (0, 0) parabola bend (4, 4) (6, 0);
+\end{scope}
+\draw (3, 4) node [above right] {$g_{F1}$};
+\begin{scope}
+	\clip (4, 0) rectangle (4.5, 5);
+	\draw[style=dashed] (0, 0) parabola bend (4, 4) (6, 0);
+\end{scope}
+\begin{scope}
+	\clip (0, 0) rectangle (1.5, 4);
+	\draw[style=very thick] (0, 0) parabola bend (1.5, 3) (3, 0);
+\end{scope}
+\begin{scope}
+	\clip (1.5, 0) rectangle (2.5, 3);
+	\draw[style=dashed] (0, 0) parabola bend (1.5, 3) (3, 0);
+\end{scope}
+\filldraw (1.5, 3) circle (0.05);
+\draw[arrows={-latex'}] (1.39, 2.99) -- (1.99, 2.99);
+\draw (2.75, 3) node [below left] {$g_{F2}$};
+\end{tikzpicture}
+\end{document}
