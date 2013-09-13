@@ -2,15 +2,15 @@ package require Tk 8.6
 
 source distillation-0.1.tm
 
-# Gas constant
-set R   8.3144621
+ttk::style theme use clam
+
 # Epsilon
 set eps 1e-15
 
 # Canvas and it's frame
 set    w 440
 set    h 440
-frame  .plot
+ttk::frame  .plot
 canvas .plot.canvas -bg white -width $w -height $h
 pack   .plot.canvas
 pack   .plot -side left
@@ -20,33 +20,34 @@ pack   .plot -side left
 # Mixture parameters
 set mIdcs [list 0 1 2]
 
+# Data frame
+
+
 # Concentrations
-frame .xs
-label .xs.label -text "Concentrations"
-pack  .xs.label
+ttk::labelframe .xs -text "Concentrations"
 foreach idx $mIdcs {
     set   x$idx 0
-    frame .xs.x$idx
-    label .xs.x$idx.label -text x$idx
+    ttk::frame .xs.x$idx
+    ttk::label .xs.x$idx.label -text x$idx
     pack  .xs.x$idx.label
-    entry .xs.x$idx.entry -textvar x$idx -width 18 \
-	-validate key -vcmd {string is double %P}
+    ttk::entry .xs.x$idx.entry -textvar x$idx -width 18 \
+	-validate key -validatecommand {string is double %P} \
+	-justify right
     pack  .xs.x$idx.entry
     pack  .xs.x$idx -side left
 }
 pack .xs
 
 # Boiling temperatures
-frame .ts
-label .ts.label -text "Boiling temperatures"
-pack  .ts.label
+ttk::labelframe .ts -text "Boiling temperatures"
 foreach idx $mIdcs {
     set   T$idx 0
-    frame .ts.t$idx
-    label .ts.t$idx.label -text T$idx
+    ttk::frame .ts.t$idx
+    ttk::label .ts.t$idx.label -text T$idx
     pack  .ts.t$idx.label
-    entry .ts.t$idx.entry -textvar T$idx -width 18 \
-	-validate key -vcmd {string is double %P}
+    ttk::entry .ts.t$idx.entry -textvar T$idx -width 18 \
+	-validate key -validatecommand {string is double %P} \
+	-justify right
     pack  .ts.t$idx.entry
     pack  .ts.t$idx -side left
 }
@@ -54,108 +55,101 @@ pack .ts
 
 # Molar boiling heats
 set   bhIdcs [list 0 1]
-frame .bhs
-label .bhs.label -text "Molar boiling heats"
-pack  .bhs.label
+ttk::labelframe .bhs -text "Molar boiling heats"
 foreach idx $bhIdcs {
     set   r$idx 0
-    frame .bhs.r$idx -padx 20
-    label .bhs.r$idx.label -text r$idx
+    ttk::frame .bhs.r$idx
+    ttk::label .bhs.r$idx.label -text r$idx
     pack  .bhs.r$idx.label
-    entry .bhs.r$idx.entry -textvar r$idx \
-	-validate key -vcmd {string is double %P}
+    ttk::entry .bhs.r$idx.entry -textvar r$idx \
+	-validate key -validatecommand {string is double %P}
     pack  .bhs.r$idx.entry
-    pack  .bhs.r$idx -side left
+    pack  .bhs.r$idx -side left -expand 1
 }
-pack .bhs
+pack .bhs -fill x 
 
 # ==== Columns ====
 
 # Heat transfer coefficients
 set   htIdcs [list B1 D1 B2 D2]
-frame .htcs
-label .htcs.label -text "Heat transfer coefficients"
-pack  .htcs.label
+ttk::labelframe .htcs -text "Heat transfer coefficients"
 foreach idx $htIdcs {
     set   B$idx 0
-    frame .htcs.b$idx -padx 2
-    label .htcs.b$idx.label -text B$idx
+    ttk::frame .htcs.b$idx
+    ttk::label .htcs.b$idx.label -text B$idx
     pack  .htcs.b$idx.label
-    entry .htcs.b$idx.entry -textvar B$idx -width 13 \
-	-validate key -vcmd {string is double %P}
+    ttk::entry .htcs.b$idx.entry -textvar B$idx -width 13 \
+	-validate key -validatecommand {string is double %P}
     pack  .htcs.b$idx.entry
-    pack  .htcs.b$idx -side left
+    pack  .htcs.b$idx -side left -expand 1
 }
-pack .htcs
+pack .htcs -fill x
 
 # Mass transfer coefficients
 set   mtIdcs [list 11 12 21 22]
-frame .mtcs
-label .mtcs.label -text "Mass transfer coefficients"
-pack  .mtcs.label
+ttk::labelframe .mtcs -text "Mass transfer coefficients"
 foreach idx $mtIdcs {
     set   k$idx 0
-    frame .mtcs.k$idx -padx 2
+    frame .mtcs.k$idx
     label .mtcs.k$idx.label -text k$idx
     pack  .mtcs.k$idx.label
-    entry .mtcs.k$idx.entry -textvar k$idx -width 13 \
-	-validate key -vcmd {string is double %P}
+    ttk::entry .mtcs.k$idx.entry -textvar k$idx -width 13 \
+	-validate key -validatecommand {string is double %P}
     pack  .mtcs.k$idx.entry
-    pack  .mtcs.k$idx -side left
+    pack  .mtcs.k$idx -side left -expand 1
 }
-pack .mtcs
+pack .mtcs -fill x
 
 set         swap1 0
 set         swap2 0
-frame       .swap
-checkbutton .swap.b1 -text "Swap columns for direct order" -variable swap1
-checkbutton .swap.b2 -text "Swap columns for indirect order" -variable swap2
+ttk::frame       .swap
+ttk::checkbutton .swap.b1 -text "Swap columns for direct order" \
+    -variable swap1
+ttk::checkbutton .swap.b2 -text "Swap columns for indirect order" \
+    -variable swap2
 pack        .swap.b1 -side left
 pack        .swap.b2
 pack        .swap
 
-frame  .button
-button .button.b -text "Plot attainability area" -command calc-ternary
+ttk::frame  .button
+ttk::button .button.b -text "Plot attainability area" -command calc-ternary
 pack   .button.b
 pack   .button
 
 set   gFm1 0
 set   gFm2 0
-frame .perf
-label .perf.label -text "Maximal performance"
-pack  .perf.label
-frame .perf.p1 -padx 20
-label .perf.p1.label -text "Direct order"
-entry .perf.p1.entry -textvar gFm1 -state readonly
+ttk::labelframe .perf -text "Maximal performance"
+ttk::frame .perf.p1 
+ttk::label .perf.p1.label -text "Direct order"
+ttk::entry .perf.p1.entry -textvar gFm1 -state readonly -width 13
 pack  .perf.p1.label
 pack  .perf.p1.entry
 pack  .perf.p1 -side left
-frame .perf.p2 -padx 20
-label .perf.p2.label -text "Indirect order"
-entry .perf.p2.entry -textvar gFm2 -state readonly
+ttk::frame .perf.p2
+ttk::label .perf.p2.label -text "Indirect order"
+ttk::entry .perf.p2.entry -textvar gFm2 -state readonly -width 13
 pack  .perf.p2.label
 pack  .perf.p2.entry
 pack  .perf.p2 -side left
-pack  .perf
+pack  .perf -side left
 
 set   qm1 0
-set   qm22 0
-frame .heat
-label .heat.label -text "Maximal performance heat"
-pack  .heat.label
-frame .heat.h1 -padx 20
-label .heat.h1.label -text "Direct order"
-entry .heat.h1.entry -textvar qm1 -state readonly
+set   qm2 0
+ttk::labelframe .heat -text "Maximal performance heat"
+ttk::frame .heat.h1 
+ttk::label .heat.h1.label -text "Direct order"
+ttk::entry .heat.h1.entry -textvar qm1 -state readonly -width 13
 pack  .heat.h1.label
 pack  .heat.h1.entry
 pack  .heat.h1 -side left
-frame .heat.h2 -padx 20
-label .heat.h2.label -text "Indirect order"
-entry .heat.h2.entry -textvar qm2 -state readonly
+ttk::frame .heat.h2
+ttk::label .heat.h2.label -text "Indirect order"
+ttk::entry .heat.h2.entry -textvar qm2 -state readonly -width 13
 pack  .heat.h2.label
 pack  .heat.h2.entry
 pack  .heat.h2 -side left
-pack  .heat
+pack  .heat -side left
+
 
 proc draw-axes {} {
     global w h
@@ -188,13 +182,13 @@ proc plot-area {} {
 	set q0     0
 	set gF0    0
 	set coords [list]
-	while {$q < $qm - ($qm / $cnt)} {
+	while {$q < $qm - 2*($qm / $cnt)} {
 	    set q    [expr $q + ($qm / $cnt)]
 	    set cgF  [$casc performance-at $mix $q]
 	    set pq   [expr 40 + round($q * $pw / $pmq)]
 	    set pq0  [expr 40 + round($q0 * $pw / $pmq)]
 	    set pgF  [expr round($h - $cgF * $ph / $pmg) - 40]
-	    set pgF0 [expr round($h - $gF0 * $ph / $pmg) - 40]
+	    set pgF0 [expr round($h - $gF0 * $ph / $pmg) - 40]	   
 	    lappend  coords $pq0 $pgF0 $pq $pgF
 	    set q0   $q
 	    set gF0  $cgF
@@ -211,10 +205,10 @@ proc calculate {} {
     global qm1 qm2
     global casc1 casc2
     global mix
-    set qm1 [$casc1 maximal-cost $mix]
-    set qm2 [$casc2 maximal-cost $mix]
-    set gFm1 [$casc1 maximal-performance $mix]
-    set gFm2 [$casc2 maximal-performance $mix]
+    set qm1  [format "%.5g" [$casc1 maximal-cost $mix]]
+    set qm2  [format "%.5g" [$casc2 maximal-cost $mix]]
+    set gFm1 [format "%.5g" [$casc1 maximal-performance $mix]]
+    set gFm2 [format "%.5g" [$casc2 maximal-performance $mix]]
 }
 
 proc calc-ternary {} { 
@@ -238,11 +232,16 @@ proc calc-ternary {} {
 	    -title Error -message "Concentrations must not be 0"
 	return
     }
-    if {abs($T0) < $eps || abs($T1) < $eps || abs($T2) < $eps} {
+    if {$T0 <= $eps || $T1 <= $eps || $T2 <= $eps} {
 	tk_messageBox -icon error \
-	    -title Error -message "Temperatures must not be 0"
+	    -title Error -message "Temperatures must be positive"
 	return
-    }	
+    }
+    if {!(($T0 < $T1) && ($T1 < $T2))} {
+	tk_messageBox -icon error \
+	    -title Error -message "Components must be ordered\nby T"
+	return
+    }
 
     set c0    [component new $x0 $T0 $r0]
     set c1    [component new $x1 $T1 $r1]
