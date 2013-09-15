@@ -36,8 +36,7 @@ mcset ru "Inapropriate parameters" \
     "Каскад нереализуем при таких значениях параметров"
 
 source [file join [file dirname [info script]] distillation-0.1.tm]
-
-encoding system utf-8
+source [file join [file dirname [info script]] fun-1.0.tm]
 
 if {![string equal $tcl_platform(os) "Windows NT"]} {
     ttk::style theme use clam
@@ -46,13 +45,17 @@ if {![string equal $tcl_platform(os) "Windows NT"]} {
 # Epsilon
 set eps 1e-15
 
+ttk::frame .m
+
 # Canvas and it's frame
 set    w 440
 set    h 440
-ttk::frame  .plot
-canvas .plot.canvas -bg white -width $w -height $h
-pack   .plot.canvas
-pack   .plot -side left
+ttk::frame  .m.plot
+canvas .m.plot.canvas -bg white -width $w -height $h
+pack   .m.plot.canvas
+pack   .m.plot -side left
+
+ttk::frame .m.d
 
 # ==== Mixture ====
 
@@ -64,52 +67,53 @@ wm title . [mc "Distillation of a ternary mixture"]
 wm resizable . false false
 
 # Concentrations
-ttk::labelframe .xs -text [mc Concentrations] \
+ttk::labelframe .m.d.xs -text [mc Concentrations] \
     -labelanchor n
 foreach idx $mIdcs {
     set   x$idx 0
-    ttk::frame .xs.x$idx
-    ttk::label .xs.x$idx.label -text x[lindex $lidcs $idx]
-    pack  .xs.x$idx.label
-    ttk::entry .xs.x$idx.entry -textvar x$idx -width 18 \
+    ttk::frame .m.d.xs.x$idx
+    ttk::label .m.d.xs.x$idx.label -text x[lindex $lidcs $idx]
+    pack  .m.d.xs.x$idx.label
+    ttk::entry .m.d.xs.x$idx.entry -textvar x$idx -width 18 \
 	-validate key -validatecommand {string is double %P} \
 	-justify right
-    pack  .xs.x$idx.entry
-    pack  .xs.x$idx -side left -expand 1
+    pack  .m.d.xs.x$idx.entry
+    pack  .m.d.xs.x$idx -side left -expand 1
 }
-pack .xs -fill x
+pack .m.d.xs -fill x
 
 # Boiling temperatures
-ttk::labelframe .ts -text [mc "Evaporation temperatures, K"] \
+ttk::labelframe .m.d.ts -text [mc "Evaporation temperatures, K"] \
     -labelanchor n
 foreach idx $mIdcs {
     set   T$idx 0
-    ttk::frame .ts.t$idx
-    ttk::label .ts.t$idx.label -text T[lindex $lidcs $idx]
-    pack  .ts.t$idx.label
-    ttk::entry .ts.t$idx.entry -textvar T$idx -width 18 \
+    ttk::frame .m.d.ts.t$idx
+    ttk::label .m.d.ts.t$idx.label -text T[lindex $lidcs $idx]
+    pack  .m.d.ts.t$idx.label
+    ttk::entry .m.d.ts.t$idx.entry -textvar T$idx -width 18 \
 	-validate key -validatecommand {string is double %P} \
 	-justify right
-    pack  .ts.t$idx.entry
-    pack  .ts.t$idx -side left -expand 1
+    pack  .m.d.ts.t$idx.entry
+    pack  .m.d.ts.t$idx -side left -expand 1
 }
-pack .ts -fill x
+pack .m.d.ts -fill x
 
 # Molar boiling heats
 set   bhIdcs [list 0 1]
-ttk::labelframe .bhs -text [mc "Molar heats of vaporization, J/mol"] \
+ttk::labelframe .m.d.bhs -text [mc "Molar heats of vaporization, J/mol"] \
     -labelanchor n
 foreach idx $bhIdcs {
     set   r$idx 0
-    ttk::frame .bhs.r$idx
-    ttk::label .bhs.r$idx.label -text r[lindex $lidcs $idx]
-    pack  .bhs.r$idx.label
-    ttk::entry .bhs.r$idx.entry -textvar r$idx \
-	-validate key -validatecommand {string is double %P}
-    pack  .bhs.r$idx.entry
-    pack  .bhs.r$idx -side left -expand 1
+    ttk::frame .m.d.bhs.r$idx
+    ttk::label .m.d.bhs.r$idx.label -text r[lindex $lidcs $idx]
+    pack  .m.d.bhs.r$idx.label
+    ttk::entry .m.d.bhs.r$idx.entry -textvar r$idx \
+	-validate key -validatecommand {string is double %P} \
+	-justify right
+    pack  .m.d.bhs.r$idx.entry
+    pack  .m.d.bhs.r$idx -side left -expand 1
 }
-pack .bhs -fill x 
+pack .m.d.bhs -fill x 
 
 # ==== Columns ====
 
@@ -117,106 +121,117 @@ pack .bhs -fill x
 set   htIdcs [list B1 D1 B2 D2]
 set   hidcs  [list B₁ D₁ B₂ D₂]
 set   i      0
-ttk::labelframe .htcs -text [mc "Heat transfer coefficients, W/K"] \
+ttk::labelframe .m.d.htcs -text [mc "Heat transfer coefficients, W/K"] \
     -labelanchor n
 foreach idx $htIdcs {
     set   B$idx 0
-    ttk::frame .htcs.b$idx
-    ttk::label .htcs.b$idx.label -text β[lindex $hidcs $i]
-    pack  .htcs.b$idx.label
-    ttk::entry .htcs.b$idx.entry -textvar B$idx -width 13 \
-	-validate key -validatecommand {string is double %P}
-    pack  .htcs.b$idx.entry
-    pack  .htcs.b$idx -side left -expand 1
+    ttk::frame .m.d.htcs.b$idx
+    ttk::label .m.d.htcs.b$idx.label -text β[lindex $hidcs $i]
+    pack  .m.d.htcs.b$idx.label
+    ttk::entry .m.d.htcs.b$idx.entry -textvar B$idx -width 13 \
+	-validate key -validatecommand {string is double %P} \
+	-justify right
+    pack  .m.d.htcs.b$idx.entry
+    pack  .m.d.htcs.b$idx -side left -expand 1
     incr  i
 }
-pack .htcs -fill x
+pack .m.d.htcs -fill x
 
 # Mass transfer coefficients
 set   mtIdcs [list 11 12 21 22]
 set   kidcs  [list ₁₁ ₁₂ ₂₁ ₂₂]
 set   i      0
-ttk::labelframe .mtcs -text [mc "Mass transfer coefficient, (mol²⋅K) / (J⋅s)"] \
+ttk::labelframe .m.d.mtcs \
+    -text [mc "Mass transfer coefficient, (mol²⋅K) / (J⋅s)"] \
     -labelanchor n
 foreach idx $mtIdcs {
     set   k$idx 0
-    ttk::frame .mtcs.k$idx
-    ttk::label .mtcs.k$idx.label -text k[lindex $kidcs $i]
-    pack  .mtcs.k$idx.label
-    ttk::entry .mtcs.k$idx.entry -textvar k$idx -width 13 \
-	-validate key -validatecommand {string is double %P}
-    pack  .mtcs.k$idx.entry
-    pack  .mtcs.k$idx -side left -expand 1
+    ttk::frame .m.d.mtcs.k$idx
+    ttk::label .m.d.mtcs.k$idx.label -text k[lindex $kidcs $i]
+    pack  .m.d.mtcs.k$idx.label
+    ttk::entry .m.d.mtcs.k$idx.entry -textvar k$idx -width 13 \
+	-validate key -validatecommand {string is double %P} \
+	-justify right
+    pack  .m.d.mtcs.k$idx.entry
+    pack  .m.d.mtcs.k$idx -side left -expand 1
     incr  i
 }
-pack .mtcs -fill x
+pack .m.d.mtcs -fill x
 
 set         swap1 0
 set         swap2 0
-ttk::frame       .swap
-ttk::checkbutton .swap.b1 -text [mc "Swap columns for direct order"] \
+ttk::frame       .m.d.swap
+ttk::checkbutton .m.d.swap.b1 -text [mc "Swap columns for direct order"] \
     -variable swap1
-ttk::checkbutton .swap.b2 -text [mc "Swap columns for indirect order"] \
+ttk::checkbutton .m.d.swap.b2 -text [mc "Swap columns for indirect order"] \
     -variable swap2
-pack        .swap.b1 -side left
-pack        .swap.b2
-pack        .swap -fill x
+pack        .m.d.swap.b1 -side left
+pack        .m.d.swap.b2
+pack        .m.d.swap -fill x
 
-ttk::frame  .button
-ttk::button .button.b -text [mc "Plot attainability region boundaries"] \
+ttk::frame  .m.d.button
+ttk::button .m.d.button.b -text [mc "Plot attainability region boundaries"] \
     -command calc-ternary
-pack   .button.b 
-pack   .button -fill x
+pack   .m.d.button.b 
+pack   .m.d.button -fill x
 
 
 set   gFm1 0
 set   gFm2 0
-ttk::frame .max
-ttk::labelframe .max.perf -text [mc "Max. performance, mol/s"] \
+ttk::frame .m.d.max
+ttk::labelframe .m.d.max.perf -text [mc "Max. performance, mol/s"] \
     -labelanchor n
-ttk::frame .max.perf.p1 
-ttk::label .max.perf.p1.label -text [mc "Direct order"]
-ttk::entry .max.perf.p1.entry -textvar gFm1 -state readonly -width 13
-pack  .max.perf.p1.label
-pack  .max.perf.p1.entry
-pack  .max.perf.p1 -side left
-ttk::frame .max.perf.p2
-ttk::label .max.perf.p2.label -text [mc "Indirect order"]
-ttk::entry .max.perf.p2.entry -textvar gFm2 -state readonly -width 13
-pack  .max.perf.p2.label
-pack  .max.perf.p2.entry
-pack  .max.perf.p2 -side left
-pack  .max.perf -side left
+ttk::frame .m.d.max.perf.p1 
+ttk::label .m.d.max.perf.p1.label -text [mc "Direct order"]
+ttk::entry .m.d.max.perf.p1.entry -textvar gFm1 -state readonly -width 13 \
+    -justify right
+pack  .m.d.max.perf.p1.label
+pack  .m.d.max.perf.p1.entry
+pack  .m.d.max.perf.p1 -side left -expand 1
+ttk::frame .m.d.max.perf.p2
+ttk::label .m.d.max.perf.p2.label -text [mc "Indirect order"]
+ttk::entry .m.d.max.perf.p2.entry -textvar gFm2 -state readonly -width 13 \
+    -justify right
+pack  .m.d.max.perf.p2.label
+pack  .m.d.max.perf.p2.entry
+pack  .m.d.max.perf.p2 -side left -expand 1
+pack  .m.d.max.perf -side left
 
 set   qm1 0
 set   qm2 0
-ttk::labelframe .max.heat -text [mc "Max. energy consumption, J"] \
+ttk::labelframe .m.d.max.heat -text [mc "Max. energy consumption, J"] \
     -labelanchor n
-ttk::frame .max.heat.h1 
-ttk::label .max.heat.h1.label -text [mc "Direct order"]
-ttk::entry .max.heat.h1.entry -textvar qm1 -state readonly -width 13
-pack  .max.heat.h1.label
-pack  .max.heat.h1.entry
-pack  .max.heat.h1 -side left
-ttk::frame .max.heat.h2
-ttk::label .max.heat.h2.label -text [mc "Indirect order"]
-ttk::entry .max.heat.h2.entry -textvar qm2 -state readonly -width 13
-pack  .max.heat.h2.label
-pack  .max.heat.h2.entry
-pack  .max.heat.h2 -side left
-pack  .max.heat -side left
-pack  .max -fill x -fill y
+ttk::frame .m.d.max.heat.h1 
+ttk::label .m.d.max.heat.h1.label -text [mc "Direct order"]
+ttk::entry .m.d.max.heat.h1.entry -textvar qm1 -state readonly -width 13 \
+    -justify right
+pack  .m.d.max.heat.h1.label
+pack  .m.d.max.heat.h1.entry
+pack  .m.d.max.heat.h1 -side left -expand 1
+ttk::frame .m.d.max.heat.h2
+ttk::label .m.d.max.heat.h2.label -text [mc "Indirect order"]
+ttk::entry .m.d.max.heat.h2.entry -textvar qm2 -state readonly -width 13 \
+    -justify right
+pack  .m.d.max.heat.h2.label
+pack  .m.d.max.heat.h2.entry
+pack  .m.d.max.heat.h2 -side left -expand 1
+pack  .m.d.max.heat -side left
+
+pack  .m.d.max -fill x
+
+pack  .m.d -side left -fill y
+pack  .m
 
 
 proc draw-axes {} {
     global w h
-    .plot.canvas create line 40 [expr $h - 20] 40 20 -arrow last
-    .plot.canvas create line 20 [expr $h - 40] \
+    .m.plot.canvas create line 40 [expr $h - 20] 40 20 -arrow last
+    .m.plot.canvas create line 20 [expr $h - 40] \
         [expr $w - 20] [expr $h - 40] -arrow last
-    .plot.canvas create text 35 [expr $h - 31] -text 0
-    .plot.canvas create text [expr $w - 31] [expr $h - 31] -text q
-    .plot.canvas create text 27 33 -text g
-    .plot.canvas create text 33 37 -text F
+    .m.plot.canvas create text 35 [expr $h - 31] -text 0
+    .m.plot.canvas create text [expr $w - 31] [expr $h - 31] -text q
+    .m.plot.canvas create text 27 33 -text g
+    .m.plot.canvas create text 33 37 -text F
 }
 
 proc plot-area {} {
@@ -230,7 +245,7 @@ proc plot-area {} {
     set pmg [expr max($gFm1, $gFm2)]
     set pw  [expr $w - 160]
     set ph  [expr $h - 120]
-    .plot.canvas delete all
+    .m.plot.canvas delete all
     draw-axes
     foreach i [list 1 2] {
 	upvar 0 qm$i  qm
@@ -252,11 +267,11 @@ proc plot-area {} {
 	    set q0   $q
 	    set gF0  $cgF
 	}
-	.plot.canvas create text [expr $pq + 5] $pgF \
+	.m.plot.canvas create text [expr $pq + 5] $pgF \
 	    -text [format "(%.3g; %.5g)" $gFm $qm] -anchor w
-	.plot.canvas create line 40 $pgF $pq $pgF -dash -
-	.plot.canvas create line $pq [expr $h - 40] $pq $pgF -dash -
-	.plot.canvas create line $coords -smooth true
+	.m.plot.canvas create line 40 $pgF $pq $pgF -dash -
+	.m.plot.canvas create line $pq [expr $h - 40] $pq $pgF -dash -
+	.m.plot.canvas create line $coords
     }
 }
 
