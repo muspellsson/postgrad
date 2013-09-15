@@ -261,7 +261,7 @@ oo::class create ternary-cascade {
 	my variable col1
 	my variable col2
 	if {$cost > [my maximal-cost $s]} { 
-	    return 0
+	    return [my maximal-performance $s]
 	}
 	set x [my key-component-concentration $s]
 	set d  [my intermediate-separate $s]

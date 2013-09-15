@@ -1,6 +1,6 @@
 $R = 8.31;
 
-$gF = 0.4;
+$gF = 1;
 
 $T0 = 393;
 $T1 = 438;
@@ -10,14 +10,14 @@ $x0 = 0.5;
 $x1 = 0.3;
 $x2 = 0.2;
 
-$beb1 = 5000;
-$bed1 = 25000;
-$beb2 = 20000;
+$beb1 = 25000;
+$bed1 = 10000;
+$beb2 = 50000;
 $bed2 = 45000;
 
 $k11 = 13;
-$k21 = 15;
 $k12 = 11;
+$k21 = 15;
 $k22 = 13;
 
 $r0 = 50000;
@@ -52,6 +52,10 @@ sub a11 {
 
 sub a12 {
     my $ka = -(1/($beb2*$T2**2) + 1/($bed2*$T1**2) + 2/($k12*$r1**2));
+    my $v1 = 1/($beb2*$T2**2);
+    my $v2 = 1/($bed2*$T1**2);
+    my $v3 = 2/($k12*$r1**2);
+    printf "%g %g %g\n", $v1, $v2, $v3;
     $ka * $T1 / AG12();
 }
 
@@ -94,7 +98,7 @@ sub q21 {
 }
 
 sub q22 {
-    (b22() - sqrt(b22()**2 - 4 * a22() * $gF * $x2)) / (2 * a21());
+    (b22() - sqrt(b22()**2 - 4 * a22() * $gF * (1-$x2))) / (2 * a21());
 }
 
 sub q1 {
@@ -171,17 +175,19 @@ printf "a22 = %g\n", a22();
 printf "cons1 = %g\n", cons1();
 printf "cons2 = %g\n", cons2();
 printf "gFm1 = %g\n", gFm1();
-printf "gFm2 = %g\n", gFm2();
+#printf "gFm2 = %g\n", gFm2();
 printf "q11 = %g\n", q11();
 printf "q12 = %g\n", q12();
-printf "q21 = %g\n", q21();
-printf "q22 = %g\n", q22();
+#printf "q21 = %g\n", q21();
+#printf "q22 = %g\n", q22();
 printf "q1 = %g\n", q1();
-printf "q2 = %g\n", q2();
+#printf "q2 = %g\n", q2();
 printf "gFm11 = %g\n", gFm11();
 printf "gFm12 = %g\n", gFm12();
-printf "gFm21 = %g\n", gFm21();
-printf "gFm22 = %g\n", gFm22();
+#printf "gFm21 = %g\n", gFm21();
+#printf "gFm22 = %g\n", gFm22();
+
+if (0) {
 printf "Switcheroooo!\n";
 switch_cols();
 printf "a11 = %g\n", a11();
@@ -190,15 +196,16 @@ printf "a21 = %g\n", a21();
 printf "a22 = %g\n", a22();
 printf "cons1 = %g\n", cons1();
 printf "cons2 = %g\n", cons2();
-printf "gFm1 = %g\n", gFm1();
+#printf "gFm1 = %g\n", gFm1();
 printf "gFm2 = %g\n", gFm2();
-printf "q11 = %g\n", q11();
-printf "q12 = %g\n", q12();
+#printf "q11 = %g\n", q11();
+#printf "q12 = %g\n", q12();
 printf "q21 = %g\n", q21();
 printf "q22 = %g\n", q22();
-printf "q1 = %g\n", q1();
+#printf "q1 = %g\n", q1();
 printf "q2 = %g\n", q2();
-printf "gFm11 = %g\n", gFm11();
-printf "gFm12 = %g\n", gFm12();
+#printf "gFm11 = %g\n", gFm11();
+#printf "gFm12 = %g\n", gFm12();
 printf "gFm21 = %g\n", gFm21();
 printf "gFm22 = %g\n", gFm22();
+}
