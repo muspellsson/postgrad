@@ -1,2 +1,2 @@
 encoding system utf-8
-source ternary-cascade.tcl
+source [file join [file dirname [info script]] ternary-cascade.tcl]

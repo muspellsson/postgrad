@@ -35,7 +35,7 @@ mcset ru "Components must be ordered by T" \
 mcset ru "Inapropriate parameters" \
     "Каскад нереализуем при таких значениях параметров"
 
-source distillation-0.1.tm
+source [file join [file dirname [info script]] distillation-0.1.tm]
 
 encoding system utf-8
 
