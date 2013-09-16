@@ -16,17 +16,20 @@ if {$fun} {
     set  sx 0
     set  sy 10
     # Sun's horizontal and vertical velocities
-    set  dx  1
+    set  dx  2
     set  dy  1
     # We need some canvas to draw our sun on
-    canvas .c -height 80 -background #6495ed
+    canvas .c -height 100 -background #505050
     # Pack canvas
     pack   .c -fill x
+    set   numimages 12
     proc init-anim {} {
-	global cwidth cheight numclouds
-	# Open image for sun
-	image create photo imSun -format png \
-	    -file [file join [file dirname [info script]] sun.png]
+	global cwidth cheight numclouds numimages
+	# Open images
+	for {set i 0} {$i < $numimages} {incr i} {
+	image create photo imSun$i -format png \
+	    -file [file join [file dirname [info script]] cats$i.png]
+	}
 	# Open image for clouds
 	image create photo imCloud -format png \
 	    -file [file join [file dirname [info script]] cloud.png]
@@ -50,11 +53,18 @@ if {$fun} {
     }
     # Command for drawing the sun
     proc sun {x y} {
+    	global cat catd numimages
 	# For now our sun is simply the image
-	.c create image $x $y -image imSun
+	set cat [expr $cat + $catd]
+	if {$cat == [expr $numimages*2]} { set cat 0 }
+	if {$cat == -1} { set cat [expr $numimages*2-1] }
+        .c create image $x $y -image imSun[expr int($cat / 2)]
     }
+    set cat 0
+    set catd 1
     # Do the hard work of animation
     proc animate {} {
+    	global catd
 	# Animation interval
 	global interval
 	# Sun coordinates
@@ -100,8 +110,8 @@ if {$fun} {
 	# Sun reflection
 	if {$sy + 30 > $cheight} {set dy -1}
 	if {$sy < 30}            {set dy 1}
-	if {$sx + 30 > $cwidth}  {set dx -1}
-	if {$sx < 30}            {set dx 1}
+	if {$sx + 30 > $cwidth}  {set dx -2; set catd -1}
+	if {$sx < 30}            {set dx 2; set catd 1}
 	# Advance sun coordinates
 	incr sx $dx
 	incr sy $dy

@@ -10,7 +10,7 @@ mcset ru "Molar heats of vaporization, J/mol" \
     "Мольная теплота парообразования, Дж/моль"
 mcset ru "Heat transfer coefficients, W/K" \
     "Коэффициенты теплопереноса, Вт/K"
-mcset ru "Mass transfer coefficient, (mol²⋅K) / (J⋅s)" \
+mcset ru "Mass transfer coefficients, (mol²⋅K) / (J⋅s)" \
     "Коэффициенты массопереноса, (моль²⋅K) / (Дж⋅c)"
 mcset ru "Swap columns for direct order" \
     "Переставить колонны для\nпрямого порядка"
@@ -20,8 +20,8 @@ mcset ru "Plot attainability region boundaries" \
     "Построить границы областей реализуемости"
 mcset ru "Max. performance, mol/s" \
     "Макс. производительность, моль/с"
-mcset ru "Max. energy consumption, J" \
-    "Макс. затраты, Дж"
+mcset ru "Max. energy consumption, W" \
+    "Макс. затраты, Вт"
 mcset ru "Direct order" "Прямой пор."
 mcset ru "Indirect order" "Непрямой пор."
 mcset ru "Concentration sum must be 1" \
@@ -34,6 +34,10 @@ mcset ru "Components must be ordered by T" \
     "Компоненты должны быть упорядочены по температурам кипения"
 mcset ru "Inapropriate parameters" \
     "Каскад нереализуем при таких значениях параметров"
+mcset ru Legend Легенда
+mcset ru "Switch point" "Точка переключения"
+mcset ru W Вт
+mcset ru "mol/s" "моль/с"
 
 source [file join [file dirname [info script]] distillation-0.1.tm]
 source [file join [file dirname [info script]] fun-1.0.tm]
@@ -142,7 +146,7 @@ set   mtIdcs [list 11 12 21 22]
 set   kidcs  [list ₁₁ ₁₂ ₂₁ ₂₂]
 set   i      0
 ttk::labelframe .m.d.mtcs \
-    -text [mc "Mass transfer coefficient, (mol²⋅K) / (J⋅s)"] \
+    -text [mc "Mass transfer coefficients, (mol²⋅K) / (J⋅s)"] \
     -labelanchor n
 foreach idx $mtIdcs {
     set   k$idx 0
@@ -199,7 +203,7 @@ pack  .m.d.max.perf -side left
 
 set   qm1 0
 set   qm2 0
-ttk::labelframe .m.d.max.heat -text [mc "Max. energy consumption, J"] \
+ttk::labelframe .m.d.max.heat -text [mc "Max. energy consumption, W"] \
     -labelanchor n
 ttk::frame .m.d.max.heat.h1 
 ttk::label .m.d.max.heat.h1.label -text [mc "Direct order"]
@@ -232,6 +236,12 @@ proc draw-axes {} {
     .m.plot.canvas create text [expr $w - 31] [expr $h - 31] -text q
     .m.plot.canvas create text 27 33 -text g
     .m.plot.canvas create text 33 37 -text F
+    .m.plot.canvas create rect 50 1 175 65 -fill lightgray
+    .m.plot.canvas create line 55 32 75 32 -width 2
+    .m.plot.canvas create line 55 48 75 48 
+    .m.plot.canvas create text 60 12 -text [mc "Legend"] -anchor w
+    .m.plot.canvas create text 80 32 -text [mc "Direct order"] -anchor w
+    .m.plot.canvas create text 80 48 -text [mc "Indirect order"] -anchor w
 }
 
 proc plot-area {} {
@@ -240,10 +250,17 @@ proc plot-area {} {
     global qm1 qm2
     global mix
     global casc1 casc2
+    global eps
     set cnt 8
-    set pmq [expr max($qm1, $qm2)]
-    set pmg [expr max($gFm1, $gFm2)]
-    set pw  [expr $w - 160]
+    set mq    [expr max($qm1, $qm2)]
+    set mulq  [expr pow(10, floor(log($mq)/log(10)))]
+    set divsq [expr int(floor($mq / $mulq)) + 1]
+    set pmq   [expr $divsq * $mulq]
+    set mg    [expr max($gFm1, $gFm2)]
+    set mulg  [expr pow(10, floor(log($mg)/log(10)))]
+    set divsg [expr int(floor($mg / $mulg)) + 1]
+    set pmg   [expr $divsg * $mulg]
+    set pw  [expr $w - 90]
     set ph  [expr $h - 120]
     .m.plot.canvas delete all
     draw-axes
@@ -267,11 +284,67 @@ proc plot-area {} {
 	    set q0   $q
 	    set gF0  $cgF
 	}
-	.m.plot.canvas create text [expr $pq + 5] $pgF \
-	    -text [format "(%.3g; %.5g)" $gFm $qm] -anchor w
+	#.m.plot.canvas create text [expr $pq + 5] $pgF \
+	#    -text [format "(%.3g; %.5g)" $gFm $qm] -anchor w
+	for {set j 1} {$j <= $divsq} {incr j} {
+	    set prim  [expr $mulq * $j]
+	    set pprim [expr 40 + round($prim * $pw / $pmq)]
+	    .m.plot.canvas create line \
+		$pprim [expr $h - 37] $pprim [expr $h - 43]
+	    .m.plot.canvas create text $pprim [expr $h - 35] \
+		-text [format "%.5g" $prim] -anchor e -angle 30
+	}
+	for {set j 1} {$j <= $divsg} {incr j} {
+	    set prim  [expr $mulg * $j]
+	    set pprim [expr round($h - $prim * $ph / $pmg) - 40 ]
+	    .m.plot.canvas create line 37 $pprim 43 $pprim
+	    .m.plot.canvas create text 36 $pprim \
+		-text [format "%.4g" $prim] -anchor e
+	}
 	.m.plot.canvas create line 40 $pgF $pq $pgF -dash -
 	.m.plot.canvas create line $pq [expr $h - 40] $pq $pgF -dash -
-	.m.plot.canvas create line $coords
+	if {$i == 1} {
+	    .m.plot.canvas create line $coords -width 2
+	} else {
+	    .m.plot.canvas create line $coords
+	}
+    }
+    proc difference {q} {
+	global casc1 casc2 mix
+	return [expr [$casc1 performance-at $mix $q] - \
+		    [$casc2 performance-at $mix $q]]
+    }
+    set a  [expr $qm * 1e-6]
+    set b  [expr min($qm1, $qm2)]
+    set fa [difference $a]
+    set fb [difference $b]
+    for {set i 0} {$i < 3000} {incr i} {
+	if {$fa * $fb > 0} {
+	    break
+	}
+	set c  [expr ($a + $b) / 2]
+	set fc [difference $c]
+	if {abs($fc) < $eps} {
+	    set g  [$casc1 performance-at $mix $c]
+	    set pg [expr round($h - $g * $ph / $pmg) - 40]
+	    set pc [expr 40 + round($c * $pw / $pmq)]
+	    .m.plot.canvas create line 40 $pg $pc $pg -dash -.
+	    .m.plot.canvas create line $pc [expr $h - 40] $pc $pg -dash -.
+	    .m.plot.canvas create rect 200 1 350 65 -fill lightgray
+	    .m.plot.canvas create text 210 12 \
+		-text [mc "Switch point"] -anchor w
+	    .m.plot.canvas create text 210 32 -anchor w \
+		-text [concat [format "q = %.5g" $c] [mc "W"]]
+	    .m.plot.canvas create text 210 48 -anchor w \
+		-text [concat [format "g  = %.5g" $g] [mc "mol/s"]]
+	    .m.plot.canvas create text 217 52 -text F -anchor w
+	    break
+	}
+	if {$fc * $fa > 0} {
+	    set a $c
+	} else {
+	    set b $c
+	}
     }
 }
 
