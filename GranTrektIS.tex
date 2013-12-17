@@ -11,6 +11,8 @@
 \geometry{a4paper,top=2cm,bottom=4cm,left=3cm,right=3cm}
 \renewcommand{\abstractname}{јннотаци€}
 \renewcommand{\baselinestretch}{1.5}
+\usepackage{color}
+\newcommand{\RED}[1]{\textcolor{red}{#1}}
 \everymath{\displaystyle}
 \begin{document}
 \begin{flushleft}
@@ -472,13 +474,22 @@ b^{II} = \frac{b_{21}b_{22}}{b_{22}+b_{21}(1-x_2)}
 \end{equation}
 
 ѕри выражении через характеристики исходной смеси неравенство (\ref{eq:b1-casc2}) принимает вид:
+%\begin{equation}
+%\begin{array}{c}
+%T_2(T_1 - T_0)(1-x_0)\left[x_1\ln x_1 + x_2\ln x_2\right] + T_0(T_2 - T_1)\left[x_0\ln x_0 + (1-x_0)\ln(1-x_0)\right] <\\
+%< T_2(T_1 - T_0)\left[(x_0+x_1)\ln(x_0+x_1)+x_2\ln x_2\right]+T_0(T_2 - T_1)\left[x_0\ln x_0 + x_1\ln x_1\right].
+%\end{array}
+%\label{eq:b1-sc2}
+%\end{equation}
+\RED{
 \begin{equation}
 \begin{array}{c}
-T_2(T_1 - T_0)(1-x_0)\left[x_1\ln x_1 + x_2\ln x_2\right] + T_0(T_2 - T_1)\left[x_0\ln x_0 + (1-x_0)\ln(1-x_0)\right] <\\
-< T_2(T_1 - T_0)\left[(x_0+x_1)\ln(x_0+x_1)+x_2\ln x_2\right]+T_0(T_2 - T_1)\left[x_0\ln x_0 + x_1\ln x_1\right].
-\end{array}
+T_2(T_1-T_0)\left[x_1\ln{\frac{x_1}{1-x_0}}+x_2\ln{\frac{1-x_2}{1-x_0}}-\ln(1-x_2)\right] < \\
+< T_0(T_2-T_1)\left[x_1\ln{\frac{x_1}{1-x_2}}+x_0\ln{\frac{1-x_0}{1-x_2}} - \ln(1-x_0)\right]
+\end{array} 
 \label{eq:b1-sc2}
 \end{equation}
+}
 
 \begin{figure}[ht]
 \centering
