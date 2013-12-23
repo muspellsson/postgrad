@@ -36,11 +36,11 @@ The paper shows that an attainability region of a binary fractionating column de
 
 
 \section{Introduction}
-  There are many books on the topic of mixture distillation (\cite{PlnvskNklv}, \cite{Gelp}, \cite{Aleksandr1}, \cite{Kafar}, \cite{PetlSer}, etc.). The book (\cite{Gelp}, p.540) says that computation methods ``are based on phase equilibrium diagrams and conditions of the material balance, but ignores the kinetics and hydrodynamic properties of apparata. There are some coefficients for filling this gap. These coefficients cannot be computed analytically and must be obtained by approximations or from practice''
+  There are many books on the topic of mixture distillation (\cite{Holland}, \cite{Gelp}, \cite{stich}, \cite{shinskey}, \cite{rose}, etc.). The book (\cite{Gelp}, p.540) says that computation methods ``are based on phase equilibrium diagrams and conditions of the material balance, but ignores the kinetics and hydrodynamic properties of apparata. There are some coefficients for filling this gap. These coefficients cannot be computed analytically and must be obtained by approximations or from practice''
 
 We must make an addition to this Gelperin quote. One of the most important things in the column model computation is the irreversibility of the heat transfer process in the reflux drum and the reboiler of the column.
   
-  Also, there were only some heuristics for choosing an optimal order of multicomponent mixture separation (\cite{Kafar}, p. 289) for example ``At first one must separate the most easily volatile component'' or ``At first one must separate the component with the largest concentration''. 
+  Also, there were only some heuristics for choosing an optimal order of multicomponent mixture separation, for example ``At first one must separate the most easily volatile component'' or ``At first one must separate the component with the largest concentration''. 
   
   Considering the problem of choosing the optimal separation sequence, such estimates are not applicable, because the reversible separation work depends only on the composition of the incoming and outgoing flows. The separation sequence must depend on the irreversible heat consumption.     
 
@@ -54,12 +54,12 @@ We must make an addition to this Gelperin quote. One of the most important thing
 
 \begin{figure}[bth]
 \centering
-\includegraphics{pic1new.eps}
+\includegraphics{pic1new1.eps}
 \caption{Packed fractionating column and corresponding flows}
 \label{fig:pic1new}
 \end{figure}
 
-Let's consider a traditional packed fractionating column (Figure \ref{fig:pic1new}) with a reboiler and a reflux drum and using the following assumptions:
+Let us consider a traditional packed fractionating column (Figure \ref{fig:pic1new}) with a reboiler and a reflux drum and using the following assumptions:
 
 1.	Mass transfer is equimolar.
 
@@ -73,19 +73,19 @@ Let's consider a traditional packed fractionating column (Figure \ref{fig:pic1ne
 
    So we consider a model of a packed distillation column with two irreversibility sources: heat transfer in the reboiler and reflux drum and mass transfer in the column itself. The mass transfer coefficient indirectly takes the internal diffusion into account.   
 
-   The molar fractions of the lower boiling component in the feed $x_{F}$ and flows in the reboiler and the reflux drum $x_{B}$ and $x_{D}$ are given. The temperatures in the reboiler ($T_B$) and the reflux drum ($T_D$), determined by evaporation temperatures, are given too. The fraction of the condensate taken from the reflux drum $varepsilon$ depends on the composition of the outgoing and incoming flows. From material balance of the lower boiling component
+   The molar fractions of the lower boiling component in the feed $x_{F}$ and flows in the reboiler and the reflux drum $x_{B}$ and $x_{D}$ are given. The temperatures in the reboiler ($T_B$) and the reflux drum ($T_D$), determined by evaporation temperatures, are given too. The fraction of the condensate taken from the reflux drum $\varepsilon$ depends on the composition of the outgoing and incoming flows. From material balance of the lower boiling component
 
 \begin{equation}\label{2}
 \varepsilon=\frac{x_F-x_B}{x_D-x_B}.
 \end{equation}
 
-Assuming the liquid phase is almost an ideal liquid and the vapour phase is almost an ideal gas,  equilibrium concentrations of the lower boiling component in vapour and liquid have this relation (\cite{PlnvskNklv}) 
+Assuming the liquid phase is almost an ideal liquid and the vapour phase is almost an ideal gas,  equilibrium concentrations of the lower boiling component in vapour and liquid have this relation
 \begin{equation}\label{5.42}
 y^0(x)= \frac{\alpha x}{1+(\alpha-1)x},
 \end{equation}
 where  $y$ --- lower boiling component concentration in the vapour, $\alpha= \frac{P_1^0(T)}{P_2^0(T)}>1$ --- relative volatility coefficient, $P_i^0$ --- pressure of a saturated vapour above the pure $i$-th component ($i$=1 for lower boiling one). 
 
-We'll not consider peculiarities of azeotropes, but our approach can be applied to mono-azeotropes if one uses a mixture with a composition corresponding to the azeotropic point as a quasi-component.
+We will not consider peculiarities of azeotropes, but our approach can be applied to mono-azeotropes if one uses a mixture with a composition corresponding to the azeotropic point as a quasi-component.
 
 \vspace*{0.3cm}
 \textbf{Thermodynamical balances of a binary distillation and the relation between the heat consumption and  the productivity of the column.}
@@ -101,7 +101,7 @@ g_{F} s_{F} - g_{F}\varepsilon s_{D} - g_{F}(1-\varepsilon) s_{B}+ \frac{q_{+}}{
 \end{equation}
 where $\sigma>0$  --- entropy production in the column.
  
- From (\ref{5.44}), (\ref{5.45}) after elimination of $q_{-}$ we'll get
+ From (\ref{5.44}), (\ref{5.45}) after elimination of $q_{-}$ we will get
 \vspace{-0.1cm}
 $$\hspace{-3.5cm}
 q_{+}= g_{F}\frac{T_B}{T_B- T_D}\Big[(s_{F} T_D-h_{F})- \varepsilon
@@ -114,7 +114,7 @@ T_D}.
 \end{equation}
 The first summand in the right part of this expression $q^0_{+}$, is the heat consumption in a reversible process, when heat and mass transfer coefficients are arbitrarily large. It depends only on parameters of the outgoing and incoming flows and is proportional to the productivity  $g_F$. The second summand is the irreversible energy losses.
 
-External outgoing and incoming heat flows usually go through heat exchangers where hot flows are cooled down and feed flow is warmed up to the temperature on the feed plate. We'll include these heat exchangers in our system considering that irreversible losses in them are negligible. So we can consider that all of external flows have the same temperature approximately equal to $T_D$. In this case $q_+=q_-=q$. 
+External outgoing and incoming heat flows usually go through heat exchangers where hot flows are cooled down and feed flow is warmed up to the temperature on the feed plate. We will include these heat exchangers in our system considering that irreversible losses in them are negligible. So we can consider that all of external flows have the same temperature approximately equal to $T_D$. In this case $q_+=q_-=q$. 
 
 Considering that the difference $(h-T_D s)$ is the same for any flow and is equal to a free molar energy or a chemical potential  $\mu$  of the mixture at $T=T_D$,  we can get a relation between heat flow and the productivity in the following form
 \begin{equation}\label{46m}
@@ -140,13 +140,13 @@ The right part of (\ref{46m}) can be expressed through the flow composition
 \begin{equation}\label{46n}
 q= g_{F}\frac{T_B}{T_B- T_D}\Big[ A_F-\varepsilon A_D-(1-\varepsilon)A_B\Big]+\frac{\sigma T_DT_B}{T_B- T_D}=\frac{p_0}{\eta_{{\mbox{\scriptsize K}}}}+ \frac{\sigma T_D}{\eta_{{\mbox{\scriptsize K}}}}.
 \end{equation}
-where $ A_i=-RT_D\Big[x_ilnx_i +(1-x_i)ln(1-x_i)\Big](i=F,D,B)$ is the reversible separation work for one mole of $i$-th flow into the pure components. The expression in the square brackets is the reversible Gibbs separation work for one mole of feed flow with concentration $x_F$ to the flows with concentrations $x_D$, $x_B$ at the temperature $T_D$. We'll denote it as $A_G$. Value $\eta_{{\mbox{\scriptsize K}}}= (1- {T_D}/{T_B})$ is analogous to the Carnot energy conversion efficiency. Given entropy in (\ref{46n}) is equal to zero, we'll get a reversible estimate $q^0=\frac{g_FA_G}{\eta_{{\mbox{\scriptsize K}}}}$ of distillation heat consumption. Reversible rectification looks like an ideal heat engine working between reservoirs with temperatures $T_B$ and $T_D$ and producing the separation power $p^0=g_F A_G$.
+where $ A_i=-RT_D\Big[x_ilnx_i +(1-x_i)ln(1-x_i)\Big](i=F,D,B)$ is the reversible separation work for one mole of $i$-th flow into the pure components. The expression in the square brackets is the reversible Gibbs separation work for one mole of feed flow with concentration $x_F$ to the flows with concentrations $x_D$, $x_B$ at the temperature $T_D$. We will denote it as $A_G$. Value $\eta_{{\mbox{\scriptsize K}}}= (1- {T_D}/{T_B})$ is analogous to the Carnot energy conversion efficiency. Given entropy in (\ref{46n}) is equal to zero, we will get a reversible estimate $q^0=\frac{g_FA_G}{\eta_{{\mbox{\scriptsize K}}}}$ of distillation heat consumption. Reversible rectification looks like an ideal heat engine working between reservoirs with temperatures $T_B$ and $T_D$ and producing the separation power $p^0=g_F A_G$.
 
 Solving  equation (\ref{46n}) for $g_F$
 \begin{equation}\label{46n1}
 g_F=q\frac{\eta_{{\mbox{\scriptsize K}}}}{A_G}-\sigma(q,g_F)\frac{T_D}{A_G}.
 \end{equation}
-Let's find a lower bound of the second summand in this expression.
+Let us find a lower bound of the second summand in this expression.
  
 
 \vspace*{0.3cm}
@@ -168,7 +168,7 @@ where $\beta_{B}$ and $\beta_{D}$ --- heat transfer coefficients, proportional t
 
 Given the heat flow, temperatures $T_+$ and $T_-$ depend on selected reboiler and reflux drum temperature differences. Substituting them into (\ref{q3}) we can get the value of $\sigma_q$.
 
-\textit{Mass transfer irreversibility}. Let's assume that we have a model of the packed fractionating column with the liquid back-flowing relative to the vapour, working in the mode close to the ideal liquid displacement.
+\textit{Mass transfer irreversibility}. Let us assume that we have a model of the packed fractionating column with the liquid back-flowing relative to the vapour, working in the mode close to the ideal liquid displacement.
  The vapour flow $V=\frac{q}{r}$ given equimolar mass transfer is constant and is related to reflux flow $L$ by the following relations
 
 for the upper part of the column
@@ -225,7 +225,7 @@ which leads us to $y^{D}(x_D)=x_D,~y^{B}(x_B)=x_B,\quad y^{D}(x_F)= y^{B}(x_F)=y
 Substituting (\ref{q6}), (\ref{q7}) into (\ref{5.62}) gives the value of $\sigma_g (q, g_{F})$ for the given mass transfer law. The integral value must be computed as the sum of integrals over intervals from $x_{B}$ to $x_{F}$, where $y(x)=
 y^{B} (x, \frac{q}{r},g_F)$, and from $x_{F}$ to $x_{D}$, where $y(x)= y^{D} (x, \frac{q}{r},g_F)$. That operation can be performed only numerically.
 
-Let's find the lower estimate of $\sigma_g$, assuming that mass transfer  is proportional to the driving force,
+Let us find the lower estimate of $\sigma_g$, assuming that mass transfer  is proportional to the driving force,
 \begin{equation}
 g(y, y^0)= k\frac{[ \mu_1(T, y^0)-\mu_1(T, y)]}{T}.
 	\label{r8}
@@ -247,7 +247,7 @@ and using (\ref{r4}) we can find the lower estimate of $\sigma_g$. The following
 \int\limits^{x_D}_{x_B} [g(y, y^0)-\bar{g}]^2 dx=\frac{k\sigma_g}{2}+(x_D-x_B)\bar{g}^2-2\bar{g}\int\limits^{x_D}_{x_B} g(y, y^0)dx.
 \label{r4b}
 \end{equation}
-The left hand side of this equation is non-negative and the third summand of the right hand side is equal to twice the second one. Solving (\ref{r4b}) for $\sigma_g$, we'll get our estimate in the form
+The left hand side of this equation is non-negative and the third summand of the right hand side is equal to twice the second one. Solving (\ref{r4b}) for $\sigma_g$, we will get our estimate in the form
 \begin{equation}
 \sigma_g\geq\frac{2(x_D-x_B)\bar{g}^2}{k}.
 \label{r4c}
@@ -295,7 +295,7 @@ g_F^m=\frac{b^2}{4a}.
 
 The interval from zero to the heat flow value $q^0$ forms the useful area of the column attainable modes. Further heat flow increase leads only to productivity decreasing.
 
-You can easily see that column efficiency value, given irreversibility, $\eta=\frac{g_F}{q}$ for the mode with the maximal productivity doesn't depend on irreversible parameters and is equal to $0,5b$ (the half or the reversible efficiency coefficient). This corresponds to the fact that the efficiency (Novikov-Kurzon-Alburn efficiency) of an irreversible heat engine for its excess power cycle doesn't depend on heat transfer kinetics, but excess power itself does. 
+You can easily see that column efficiency value, given irreversibility, $\eta=\frac{g_F}{q}$ for the mode with the maximal productivity doesn't depend on irreversible parameters and is equal to $0,5b$ (the half or the reversible efficiency coefficient). This corresponds to the fact that the efficiency (Novikov-Curzon-Ahlborn efficiency) of an irreversible heat engine for its maximal power cycle doesn't depend on heat transfer kinetics, but maximal power itself does. 
 
 The effective mass transfer coefficient $k$ in (\ref{r4e}) is assumed to be given. There is a description of the method for calculating this coefficient in the Appendix.
 
@@ -305,17 +305,31 @@ The heating vapour temperature $T_+$ is slightly higher than the temperature in 
 \section {Ternary mixture. The variety of attainable modes and selection of optimal separation sequence.}
 Some problems can be solved using (\ref{r4e}), (\ref{b4e}).
 
-The distillation process is highly power-consuming so it is sensibly to choose the separation order so it will minimize the heat consumption for the given productivity and flow composition. For simplicity we'll assume that distillation in each column is full, e.g. the mixture is separated into pure components.
+The distillation process is highly power-consuming so it is sensibly to choose the separation order so it will minimize the heat consumption for the given productivity and flow composition. For simplicity we will assume that distillation in each column is complete, e.g. the mixture is separated into pure components.
 
-Mixture components must be arranged so that the evaporation temperature is maximal for the component with a concentration $x_2$. We'll introduce the notation for characteristic coefficients of each distillation order:
+Mixture components must be arranged so that the evaporation temperature is maximal for the component with a concentration $x_2$. We will introduce the notation for characteristic coefficients of each distillation order:
 
---- Direct order, when the first column separates the component with zero index and the second column separates components with indices one and two. Corresponding characteristic coefficients will have the index 1. For example, $b_{11}$ is the reversible efficiency coefficient of the direct distillation order for the first column.
+--- Direct order (Fig. \ref{fig:direct}), when the first column separates the component with zero index and the second column separates components with indices one and two. Corresponding characteristic coefficients will have the index 1. For example, $b_{11}$ is the reversible efficiency coefficient of the direct distillation order for the first column.
 
---- Indirect order, when the first column separates the component with the index two and the second column separates two other components. So $b_{21}$ is the reversible efficiency coefficient of the indirect distillation order for the first column.
+--- Indirect order (Fig. \ref{fig:indirect}), when the first column separates the component with the index two and the second column separates two other components. So $b_{21}$ is the reversible efficiency coefficient of the indirect distillation order for the first column.
+
+\begin{figure}[bth]
+\centering
+\includegraphics{direct.eps}
+\caption{Direct distillation order. A, B and C are the mixture components.}
+\label{fig:direct}
+\end{figure}
+
+\begin{figure}[bth]
+\centering
+\includegraphics{indirect.eps}
+\caption{Indirect distillation order. A, B and C are the mixture components.}
+\label{fig:indirect}
+\end{figure}
 
 At first we must find the values of  $a_{ij}, b_{ij},i=1, 2;\quad j=1, 2$ using (\ref{r4e}), (\ref{b4e}).
 
-Given a mixture with the concentrations $x_0$, $x_1$, $x_2$, we'll assume that $x_0$ is the lower boiling component concentration and $x_2$ is the higher boiling component concentration. Also, we'll assume that relative volatilities $\alpha_{01}$ and $\alpha_{12}$ are known, as are molar vaporization heats of lower boiling $r_0$ and middle boiling $r_1$ components. Molar vaporization heat of the mixture of lower boiling and middle boiling components is the weighted average $r_{01} = (r_0x_0 + r_1x_1)/(x_0+x_1)$. Corresponding evaporation temperatures will be denoted as $T_0$, $T_1$ and $T_2$.
+Given a mixture with the concentrations $x_0$, $x_1$, $x_2$, we will assume that $x_0$ is the lower boiling component concentration and $x_2$ is the higher boiling component concentration. Also, we will assume that relative volatilities $\alpha_{01}$ and $\alpha_{12}$ are known, as are molar vaporization heats of lower boiling $r_0$ and middle boiling $r_1$ components. Molar vaporization heat of the mixture of lower boiling and middle boiling components is the weighted average $r_{01} = (r_0x_0 + r_1x_1)/(x_0+x_1)$. Corresponding evaporation temperatures will be denoted as $T_0$, $T_1$ and $T_2$.
 
 In the case of the direct distillation order:
 \begin{itemize}
@@ -336,11 +350,11 @@ a_{11} = -\left[\frac{1}{\beta^B_{11}T_1^2} + \frac{1}{\beta^D_{11}T_0^2} + \fra
 \end{equation}
 For the second column:
 \begin{equation}
-b_{12} = -\frac{T_2 - T_1}{RT_1T_2(x_1\ln{x_1} + x_2\ln{x_2})},
+b_{12} = -\frac{T_2 - T_1}{RT_1T_2(\frac{x_1}{1-x_0}\ln{\frac{x_1}{1-x_0}} + \frac{x_2}{1-x_0}\ln{\frac{x_2}{1-x_0}})},
 \label{eq:b2c1v}
 \end{equation}
 \begin{equation}
-a_{12} = -\left[\frac{1}{\beta^B_{12}T_2^2} + \frac{1}{\beta^D_{12}T_1^2} + \frac{2}{k_{12}r_1^2}\right]\frac{1}{R(x_0\ln{x_0} + x_2\ln{x_2})}.
+a_{12} = -\left[\frac{1}{\beta^B_{12}T_2^2} + \frac{1}{\beta^D_{12}T_1^2} + \frac{2}{k_{12}r_1^2}\right]\frac{1}{R(\frac{x_1}{1-x_0}\ln{\frac{x_1}{1-x_0}} + \frac{x_2}{1-x_0}\ln{\frac{x_2}{1-x_0}})}.
 \label{eq:a2c1v}
 \end{equation}
 
@@ -363,11 +377,11 @@ a_{21} = -\left[\frac{1}{\beta^B_{21}T_2^2} + \frac{1}{\beta^D_{21}T_1^2} + \fra
 \end{equation}
 For the second column:
 \begin{equation}
-b_{22} = -\frac{T_1 - T_0}{RT_1T_0(x_0\ln{x_0} + x_1\ln{x_1})},
+b_{22} = -\frac{T_1 - T_0}{RT_1T_0(\frac{x_0}{1-x_2}\ln{\frac{x_0}{1-x_2}} + \frac{x_1}{1-x_2}\ln{\frac{x_1}{1-x_2}})},
 \label{eq:b2c2v}
 \end{equation}
 \begin{equation}
-a_{22} = -\left[\frac{1}{\beta^B_{22}T_1^2} + \frac{1}{\beta^D_{22}T_0^2} + \frac{2}{k_{22}r_0^2}\right]\frac{1}{R(x_0\ln{x_0} + x_1\ln{x_1})}.
+a_{22} = -\left[\frac{1}{\beta^B_{22}T_1^2} + \frac{1}{\beta^D_{22}T_0^2} + \frac{2}{k_{22}r_0^2}\right]\frac{1}{R(\frac{x_0}{1-x_2}\ln{\frac{x_0}{1-x_2}} + \frac{x_1}{1-x_2}\ln{\frac{x_1}{1-x_2}})}.
 \label{eq:a2c2v}
 \end{equation}
 
@@ -406,7 +420,7 @@ a_{12} = a_{11}\frac{b_{12}^2}{b_{11}^2(1-x_0)},\quad a_{22} = a_{21}\frac{b_{21
 
 \paragraph{Calculating the maximal heat consumption. Attainability boundary of the column cascade.}
 
-We'll write our equations for the direct distillation order. The indirect order can be treated in a similar way. 
+We will write our equations for the direct distillation order. The indirect order can be treated in a similar way. 
 
 Considering the cascade of two columns with productivities:
 \begin{equation}
@@ -416,7 +430,7 @@ and
 \begin{equation}
 g_F(1-x_0) = b_{12} q_2,
 \end{equation}
-we'll get the reversible estimate for the cascade productivity depending on the total heat flow $q$,
+we will get the reversible estimate for the cascade productivity depending on the total heat flow $q$,
 \begin{equation}
 g_F = \frac{b_{11}b_{12}(q_1+q_2)}{b_{12}+b_{11}(1-x_0)}.
 \label{eq:casc-r}
@@ -440,17 +454,14 @@ If every incoming flow is much smaller than the maximal productivity, the distil
 \end{equation}
 Through properties of the feed (\ref{eq:b1-casc2}) can be rewritten as
 \begin{equation}
-\begin{array}{c}
-T_2(T_1 - T_0)(1-x_0)\left[x_1\ln x_1 + x_2\ln x_2\right] + T_0(T_2 - T_1)\left[x_0\ln x_0 + (1-x_0)\ln(1-x_0)\right] \\
-< T_2(T_1 - T_0)\left[(x_0+x_1)\ln(x_0+x_1)+x_2\ln x_2\right]+T_0(T_2 - T_1)\left[x_0\ln x_0 + x_1\ln x_1\right].
-\end{array}
+T_2(T_1 - T_0) > T_2(T_1 - T_0).
 \label{eq:b1-sc2}
 \end{equation}
 
 \begin{figure}[bth]
 \centering
-\includegraphics{pic5.eps}
-\caption{Regions of the concentration simplex in the $(x_0,x_1)$ plane with different preferred order. Direct order is preferred above the curve with 1 --- without considering irreversibility, 2 --- considering irreversibility.}
+\includegraphics{simplex.eps}
+\caption{Regions of the concentration simplex in the $(x_0,x_2)$ plane with different preferred order, considering irreversibility. Direct order is preferred ``to the right'' of the curves. Different curves correspond to different values of given $g_F$.}
 \label{fig:pic5}
 \end{figure}
 
@@ -563,7 +574,7 @@ where $g_{Fi}$ is the relation between the cascade productivity and the heat con
 
 
 \section {Calculation of the effective column parameters.}
-Processes in the fractionating column are very complex and depend on hydrodynamic issues that can be calculated by empirical relations based on real column measurements. We'll show how to compute some of them.
+Processes in the fractionating column are very complex and depend on hydrodynamic issues that can be calculated by empirical relations based on real column measurements. We will show how to compute some of them.
 
 \textbf{Calculation of the mass transfer coefficient.}
 
@@ -659,10 +670,10 @@ k_{22} = 13\: \frac{\mbox{mol}^2K}{\mbox{J}\cdot\mbox{s}}.
 $$
 
 $$
-\beta^B_{i1} = 25000\: \frac{\mbox{W}}{K},\quad
-\beta^B_{i2} = 10000\: \frac{\mbox{W}}{K},\quad
-\beta^D_{i1} = 50000\: \frac{\mbox{W}}{K},\quad
-\beta^D_{i2} = 45000\: \frac{\mbox{W}}{K}\quad i=1,2.
+\beta^B_{i1} = 20000\: \frac{\mbox{W}}{K},\quad
+\beta^B_{i2} = 70000\: \frac{\mbox{W}}{K},\quad
+\beta^D_{i1} = 22000\: \frac{\mbox{W}}{K},\quad
+\beta^D_{i2} = 75000\: \frac{\mbox{W}}{K}\quad i=1,2.
 $$
 
 Required productivity is
@@ -672,58 +683,46 @@ $
 
 2. Characteristic parameters for each column
 
--- Reversible efficiency coefficient given by (\ref{eq:b1c1v}), (\ref{eq:b2c1v}), (\ref{eq:b1c2v}), (\ref{eq:b2c2v})
+-- Reversible efficiency coefficients given by (\ref{eq:b1c1v}), (\ref{eq:b2c1v}), (\ref{eq:b1c2v}), (\ref{eq:b2c2v})
 $$
 b_{11} = 4.54\cdot10^{-5}\: \frac{\mbox{mol}}{\mbox{J}},\quad
-b_{12} = 1.76\cdot10^{-5}\: \frac{\mbox{mol}}{\mbox{J}},\quad
+b_{12} = 1.78\cdot10^{-5}\: \frac{\mbox{mol}}{\mbox{J}},\quad
 $$
 $$
 b_{21} = 2.40\cdot10^{-5}\: \frac{\mbox{mol}}{\mbox{J}},\quad
-b_{22} = 4.44\cdot10^{-5}\: \frac{\mbox{mol}}{\mbox{J}},\quad
+b_{22} = 4.75\cdot10^{-5}\: \frac{\mbox{mol}}{\mbox{J}},\quad
 $$
 
 --- Irreversibility coefficients given by (\ref{eq:a1c1v}), (\ref{eq:a2c1v}), (\ref{eq:a1c2v}), (\ref{eq:a2c2v})
 $$
-a_{11} = 1.83\cdot10^{-10}\: \frac{\mbox{mol}\cdot\mbox{s}}{\mbox{J}^2},\quad
-a_{12} = 4.37\cdot10^{-11}\: \frac{\mbox{mol}\cdot\mbox{s}}{\mbox{J}^2},\quad
+a_{11} = 1.07\cdot10^{-10}\: \frac{\mbox{mol}\cdot\mbox{s}}{\mbox{J}^2},\quad
+a_{12} = 3.12\cdot10^{-11}\: \frac{\mbox{mol}\cdot\mbox{s}}{\mbox{J}^2},\quad
 $$
 $$
-a_{21} = 2.11\cdot10^{-10}\: \frac{\mbox{mol}\cdot\mbox{s}}{\mbox{J}^2},\quad
-a_{22} = 5.27\cdot10^{-11}\: \frac{\mbox{mol}\cdot\mbox{s}}{\mbox{J}^2}.
+a_{21} = 1.23\cdot10^{-10}\: \frac{\mbox{mol}\cdot\mbox{s}}{\mbox{J}^2},\quad
+a_{22} = 4.04\cdot10^{-11}\: \frac{\mbox{mol}\cdot\mbox{s}}{\mbox{J}^2}.
 $$
 
 3. Checking consistency conditions (\ref{eq:s1}), (\ref{eq:s2})
 
 For direct and indirect order, from (\ref{eq:s1})
 $$
-14.11 \geq 11.23,\quad 56.90 \geq 2.72,
+20.35 \geq 19.25,\quad 60.89 \geq 4.64,
 $$
 so consistency conditions are satisfied.
 
 4. Maximal productivity for each distillation order is given by (\ref{eq:max-perf})
 $$
-g_{F}^{*I} = 2.17\: \frac{\mbox{mol}}{\mbox{s}},\quad
-g_{F}^{*II} = 0.50\: \frac{\mbox{mol}}{\mbox{s}}.
+g_{F}^{*I} = 4.81\: \frac{\mbox{mol}}{\mbox{s}},\quad
+g_{F}^{*II} = 1.15\: \frac{\mbox{mol}}{\mbox{s}}.
 $$
-The required productivity is less than the maximal one only for the direct distillation order. For the indirect order we'll swap columns getting irreversibility coefficients
-$$
-a_{21}^u = 6.20\cdot10^{-11}\: \frac{\mbox{mol}\cdot\mbox{s}}{\mbox{J}^2},\quad
-a_{22}^u = 1.55\cdot10^{-10}\: \frac{\mbox{mol}\cdot\mbox{s}}{\mbox{J}^2}.
-$$
-Let's check the consistency condition and find the maximal cascade productivity:
-$$
-15.97 \geq 9.28,\quad g_F^{*II} = 2.32\: \frac{\mbox{mol}}{\mbox{s}}.
-$$
-Now the required productivity is less than the maximal one.
+The required productivity is less than the maximal one for both distillation orders.
 
-5. For each distillation order heat consumption is given by (\ref{eq:1cq}), (\ref{eq:2cq}):
-$$
-q_{11} = 24066\:\mbox{W},\quad q_{12} = 30836\:\mbox{W},\quad q_{21} = 47555\:\mbox{W},\quad q_{22} = 48129\:\mbox{W}.
-$$
+5. For each distillation order the total heat consumption is given by (\ref{eq:1cq}), (\ref{eq:2cq}).
 
-The total heat consumption for distillation with the productivity $g_F = 0.8\:\mbox{mol/s}$ for direct and indirect order are, respectively:
+The total heat consumption for distillation with the productivity $g_F = 1\:\mbox{mol/s}$ for direct and indirect order are, respectively:
 $$
-\bar{q}^I = 54902\:\mbox{W},\quad \bar{q}^{II} = 95684 \:\mbox{W},
+\bar{q}^I = 52897\:\mbox{W},\quad \bar{q}^{II} = 77945 \:\mbox{W},
 $$
 Thus for the present case the direct distillation order is more effective than the indirect one.
 
@@ -740,28 +739,28 @@ With the help of this result the problem of choosing the optimal separation sequ
 \newpage
 \section*{Literature}
 \begin{enumerate}
-\bibitem{PlnvskNklv}
-{\it Planovsky A.N., Nikolaev P.I.} Processes and apparata for chemical and oil-chemical technology, Moscow: Chemistry, 1987, \textit{in Russian}
+\bibitem{Holland}
+{\it C.D. Holland,} Fundamentals of Multicomponent Distillation, Prentice-Hall, 1963,
 \bibitem{Gelp}
-{\it Gelperin N.I.} The common processes and apparata for chemical technology, Moscow: Chemistry, 1981, \textit{in Russian}
-\bibitem{Aleksandr1}
-{\it Aleksandrov I.A.} Distillation and absorption apparata, Moscow: Chemistry, 1978, \textit{in Russian}
-\bibitem{PetlSer}
-{\it Petlyuk F.B., Seraphimov L.A.} Multicomponent distillation. Theory and practice, Moscow: Chemistry, 1983, \textit{in Russian}
-\bibitem{Kafar}
-{\it Kafarov V.V., Meshalkin V.P., Perov V.L.} Mathematical basis for automatic chemistry production design, Moscow: Chemistry, 1979, \textit{in Russian}
+{\it N.I. Gelperin,} The common processes and apparata for chemical technology, Moscow: Chemistry, 1981, \textit{in Russian}
+\bibitem{stich}
+{\it J. Stichlmair, J.R. Fair,} Distillation: Principles and Practices, Wiley-VCH, 1998,
+\bibitem{shinskey}
+{\it F.G. Shinskey,} Distillation Control: for Productivity and Energy Conservation, McGraw-Hill, 1977,
+\bibitem{rose}
+{\it G.L. Wells, L.M. Rose,} The Art of Chemical Process Design, Elsevier, 1986,
 \bibitem{Berry}
-{\it Berry R.S., Kasakov V.A., Sieniutycz S., Tsirlin A.M.} Thermodynamic Optimization of Finite Time Processes. // 
+{\it R.S. Berry, V.A. Kasakov, S. Sieniutycz, A.M. Tsirlin,} Thermodynamic Optimization of Finite Time Processes. // 
 Chichester: John Wiley and Sons, 1999.
 \bibitem{TsGrig}
-{\it Tsirlin A.M., Grigorevsky I.N.} Thermodynamical estimation of the limit capacity of irreversible binary distillation -  J. Non-Equilibrium Thermodynamics, 2010, Vol.35 p.213-233
+{\it A.M. Tsirlin, I.N. Grigorevsky,} Thermodynamical estimation of the limit capacity of irreversible binary distillation -  J. Non-Equilibrium Thermodynamics, 2010, Vol.35 p.213-233
 \bibitem{Amelkin}
-{\it Amelkin S.A.,Burtzler Y.M., Hoffman K.H., Tsirlin A.M.} Estimation of limiting capabilities of distillation processes //Theoretical foundations of chemical engineering, Vol.35, No.3. 2001
+{\it S.A. Amelkin, Y.M. Burtzler, K.H. Hoffman, A.M. Tsirlin,} Estimation of limiting capabilities of distillation processes //Theoretical foundations of chemical engineering, Vol.35, No.3. 2001
 \bibitem{Tsirlin1}
-{\it Tsirlin A. M., Kazakov V.A.,} Irreversible work of separation and heat-driven separation // J.Phys.Chem. B 2004. V.108. P 6035--6042.
+{\it A.M. Tsirlin, V.A. Kazakov,} Irreversible work of separation and heat-driven separation // J.Phys.Chem. B 2004. V.108. P 6035--6042.
 %\bibitem{Tsirlin2}
 %{\it Tsirlin A.M.} Irreversible estimates of ultimate capabilities of thermodynamic and microeconomic systems, Moscow: Science, 2003, \textit{in Russian}.
 \bibitem{Tsirlin3}
-{\it Tsirlin A.M., Zubov D.A., Barbot A.} Irreversibility factor in the binary distillation process //Theoretical foundations of chemical engineering, Vol.40, No.2, 2006.
+{\it A.M. Tsirlin, D.A. Zubov, A. Barbot,} Irreversibility factor in the binary distillation process //Theoretical foundations of chemical engineering, Vol.40, No.2, 2006.
 \end{enumerate}
 \end{document}

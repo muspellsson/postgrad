@@ -1,0 +1,13 @@
+Dear Reviewer 1,
+
+Thank you for your review, it was helpful. 
+We have fixed all issue, you pointed at and added a simple pictures describing different distillation orders.
+
+About temperature values: we are assuming that there are some regenerative heat-exchanger (it is now added to Fig. 1) and its irreversibility is negligibly low, so we can also assume that all of external flows have the temperature of T_D (and, of course, T_F = T_D).
+It slightly lowers the irreversibility estimate, but makes the system analysis simpler.
+
+
+
+Dear Reviewer 2,
+
+Thank you for your review, we have fixed the typo you have pointed at.
